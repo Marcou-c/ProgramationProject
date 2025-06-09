@@ -19,7 +19,7 @@ export async function getSpeakers() {
         headers: {
           "Content-Type": "application/json"
         },
-        body: JSON.stringify(speakers)
+        body: JSON.stringify(speaker)
       });
   
       if (!response.ok) throw new Error("Error al agregar orador");
