@@ -1,8 +1,8 @@
 // src/api/graduates.js
-export async function getGraduates() {
+export async function getSpeakers() {
     try {
       const respuesta = await fetch('http://localhost:3000/api/graduates');
-      if (!respuesta.ok) throw new Error('Error al traer graduados');
+      if (!respuesta.ok) throw new Error('Error al traer oradores');
       const datos = await respuesta.json();
       return datos;
     } catch (error) {
@@ -11,17 +11,18 @@ export async function getGraduates() {
     }
   }
 
-  export async function addGraduate(graduate) {
+  
+  export async function addSpeaker(speaker) {
     try {
-      const response = await fetch("http://localhost:3000/api/graduates", {
+      const response = await fetch("http://localhost:3000/api/speakers", {
         method: "POST", 
         headers: {
           "Content-Type": "application/json"
         },
-        body: JSON.stringify(graduate)
+        body: JSON.stringify(speakers)
       });
   
-      if (!response.ok) throw new Error("Error al agregar graduado");
+      if (!response.ok) throw new Error("Error al agregar orador");
       const nuevo = await response.json();
       return nuevo;
     } catch (error) {
@@ -30,9 +31,9 @@ export async function getGraduates() {
     }
   }
   
-  export async function updateGraduate(id, updatedData) {
+export async function updateSpeaker(id, updatedData) {
   try {
-    const response = await fetch(`http://localhost:3000/api/graduates/${id}`, {
+    const response = await fetch(`http://localhost:3000/api/speakers/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json"
@@ -40,7 +41,7 @@ export async function getGraduates() {
       body: JSON.stringify(updatedData)
     });
 
-    if (!response.ok) throw new Error("Error al actualizar graduado");
+    if (!response.ok) throw new Error("Error al actualizar orador");
     const actualizado = await response.json();
     return actualizado;
   } catch (error) {
@@ -50,13 +51,13 @@ export async function getGraduates() {
 }
 
 // Eliminar un graduado
-export async function deleteGraduate(id) {
+export async function deleteSpeaker(id) {
   try {
-    const response = await fetch(`http://localhost:3000/api/graduates/${id}`, {
+    const response = await fetch(`http://localhost:3000/api/speakers/${id}`, {
       method: "DELETE"
     });
 
-    if (!response.ok) throw new Error("Error al eliminar graduado");
+    if (!response.ok) throw new Error("Error al eliminar orador");
     return true; // Confirmación de borrado
   } catch (error) {
     console.error("Error:", error);
