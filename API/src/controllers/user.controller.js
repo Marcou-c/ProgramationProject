@@ -61,13 +61,13 @@ const login = async (req, res) => {
       return res.status(404).json({ message: 'Usuario no encontrado' });
     }
 
-    // Verificar la contraseña
+  
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
       return res.status(400).json({ message: 'Contraseña incorrecta' });
     }
 
-    // Crear un token JWT con tiempo de expiración de 1 hora
+  
     const token = jwt.sign({ id_user: user.id_user }, JWT_SECRET, { expiresIn: '1h' });
 
     res.status(200).json({ token });
@@ -81,6 +81,6 @@ module.exports = {
   getUserById,
   updateUser,
   deleteUser,
-  login // 👈 AÑADE ESTA LÍNEA
+  login 
 };
 

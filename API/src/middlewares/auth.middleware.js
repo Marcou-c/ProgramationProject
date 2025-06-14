@@ -3,12 +3,9 @@ const { promisify } = require('util');
 const { User } = require('../models'); 
 require('dotenv').config();
 
-// Función promisificada de `jwt.verify`
 const verifyToken = promisify(jwt.verify);
 
-/**
- * Middleware para verificar el JWT y adjuntar el usuario a `req.user`
- */
+
 const authenticate = async (req, res, next) => {
   const authHeader = req.headers.authorization;
 
