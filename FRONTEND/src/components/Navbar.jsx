@@ -1,9 +1,8 @@
 import { Link, useNavigate } from "react-router-dom";
-//import { useAuth } from "../context/AuthContext";
+import { useAuth } from "../context/AuthContext";
 
 export default function Navbar() {
-  //const { logout } = useAuth();
-  //const navigate = useNavigate();
+  const { user, logout } = useAuth();
 
   const handleLogout = () => {
    logout();
@@ -12,6 +11,14 @@ export default function Navbar() {
 
   return (
   <nav className="fixed top-0 w-full z-50 bg-blue-950 text-white px-6 py-4 flex justify-between items-center shadow-md">
+     {user ? (
+        <>
+          <span>Hola {user.name} ({user.role})</span>
+          <button onClick={logout}>Salir</button>
+        </>
+      ) : (
+        <span>No autenticado</span>
+      )}
 
       <h1 className="text-xl font-bold ">Menú</h1>
       <ul className="flex gap-7 items-center">
