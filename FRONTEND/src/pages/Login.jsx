@@ -116,7 +116,7 @@ export default function AuthPage() {
                         />
                         <input
                             name="email"
-                            placeholder="Email"
+                            placeholder="Email" //kkk
                             value={regForm.email}
                             onChange={handleRegisterChange}
                             required
