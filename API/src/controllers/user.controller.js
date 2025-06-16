@@ -1,12 +1,10 @@
 const { User, Role } = require('../models');
 const { JWT_SECRET } = process.env;
 const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken'); // Asegúrate de tener esto importado
-
 const createUser = async (req, res) => {
   try {
-    const { name, email, password, id_role } = req.body;
-    const user = await User.create({ name, email, password, id_role });
+    const { name, password, id_role } = req.body;
+    const user = await User.create({ name, password, id_role });
     res.status(201).json(user);
   } catch (error) {
     res.status(500).json({ message: 'Error al crear usuario', error });
@@ -57,38 +55,32 @@ const deleteUser = async (req, res) => {
 const login = async (req, res) => {
   try {
     const { email, password } = req.body;
-
-    const user = await User.findOne({
-      where: { email },
-      include: Role
-    });
+    const user = await User.findOne({ where: { email } });
 
     if (!user) {
       return res.status(404).json({ message: 'Usuario no encontrado' });
     }
 
+  
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
       return res.status(400).json({ message: 'Contraseña incorrecta' });
     }
 
-    const token = jwt.sign(
-      { id_user: user.id_user }, // El rol será cargado por el middleware
-      JWT_SECRET,
-      { expiresIn: '1h' }
-    );
+  
+    const token = jwt.sign({ id_user: user.id_user }, JWT_SECRET, { expiresIn: '1h' });
 
     res.status(200).json({ token });
   } catch (error) {
     res.status(500).json({ message: 'Error en el login', error });
   }
 };
-
 module.exports = {
   createUser,
   getAllUsers,
   getUserById,
   updateUser,
   deleteUser,
-  login
+  login 
 };
+
